@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客搭建指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #F8F5F2;
+            color: #434242;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #7D5A50;
+            border-bottom-color: #7D5A50;
+        }
+        .platform-tag {
+            transition: all 0.3s ease;
+        }
+        .platform-tag.active {
+            background-color: #7D5A50;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="bg-white/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="#hero" class="text-xl font-bold text-[#7D5A50]">自建博客之旅</a>
+                </div>
+                <div class="hidden md:block">
+                    <nav class="ml-10 flex items-baseline space-x-4">
+                        <a href="#chooser" class="nav-link px-3 py-2 rounded-md text-sm font-medium">平台选择器</a>
+                        <a href="#foundations" class="nav-link px-3 py-2 rounded-md text-sm font-medium">基础搭建</a>
+                        <a href="#content" class="nav-link px-3 py-2 rounded-md text-sm font-medium">内容创作</a>
+                        <a href="#growth" class="nav-link px-3 py-2 rounded-md text-sm font-medium">推广与增长</a>
+                    </nav>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-[#7D5A50] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#B4846C]">
+                        <span class="sr-only">打开主菜单</span>
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#chooser" class="nav-link block px-3 py-2 rounded-md text-base font-medium">平台选择器</a>
+                <a href="#foundations" class="nav-link block px-3 py-2 rounded-md text-base font-medium">基础搭建</a>
+                <a href="#content" class="nav-link block px-3 py-2 rounded-md text-base font-medium">内容创作</a>
+                <a href="#growth" class="nav-link block px-3 py-2 rounded-md text-base font-medium">推广与增长</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="pt-24 pb-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-[#434242]">开启您的<span class="text-[#7D5A50]">自建博客</span>之旅</h1>
+                <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-500">从选择完美的平台到创作引人入胜的内容，这份交互式指南将帮助您轻松搭建并运营一个成功的视觉化个人博客。</p>
+                <div class="mt-8">
+                    <a href="#chooser" class="inline-block bg-[#7D5A50] text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-[#B4846C] transition-all duration-300 transform hover:-translate-y-1">
+                        开始探索
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="chooser" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-[#434242]">第一步: 选择最适合您的博客平台</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-500">博客平台是您在线创作的家。不同的平台各有优劣，关键是找到最符合您需求的那一个。请通过下方的标签筛选，或直接浏览卡片，找到您的理想选择。这个工具能帮您快速定位，让决策不再困难。</p>
+                </div>
+
+                <div id="platform-filters" class="mt-10 flex flex-wrap justify-center gap-3">
+                    <button data-filter="all" class="platform-tag active bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-full">全部显示</button>
+                    <button data-filter="easy" class="platform-tag bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-full">易于上手</button>
+                    <button data-filter="visual" class="platform-tag bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-full">视觉强大</button>
+                    <button data-filter="flexible" class="platform-tag bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-full">高度灵活</button>
+                    <button data-filter="free" class="platform-tag bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-full">免费方案</button>
+                </div>
+
+                <div id="platform-grid" class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                </div>
+
+                <div class="mt-20 text-center">
+                    <h3 class="text-2xl font-bold text-[#434242]">多维度对比</h3>
+                    <p class="mt-2 max-w-2xl mx-auto text-md text-gray-500">使用雷达图直观比较各平台在不同维度的表现。数值越高代表该项能力越强。</p>
+                    <div class="chart-container mt-8">
+                        <canvas id="platform-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="foundations" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-[#434242]">第二步: 搭建博客基础</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-500">一个好的域名是您的网络名片，而稳定的托管服务是您博客的家。了解这些基础概念，是成功的第一步。我们为您梳理了关键点，让您在建站之初就打下坚实的基础。</p>
+                </div>
+
+                <div class="mt-12 max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+                    <div id="accordion-domain" class="accordion-item bg-[#F8F5F2] p-6 rounded-lg shadow-sm">
+                        <button class="accordion-header w-full flex justify-between items-center text-left text-xl font-semibold">
+                            <span>域名选择技巧 🌐</span>
+                            <span class="accordion-icon transform transition-transform duration-300">▼</span>
+                        </button>
+                        <div class="accordion-content mt-4 text-gray-600 space-y-2">
+                            <p><strong>简短易记:</strong> 方便用户记忆和分享。</p>
+                            <p><strong>避免数字和连字符:</strong> 容易造成输入错误。</p>
+                            <p><strong>包含关键词:</strong> 有助于搜索引擎优化(SEO)。</p>
+                            <p><strong>考虑长远:</strong> 选择一个有扩展性的品牌化域名。</p>
+                            <p><strong>研究商标:</strong> 避免法律纠纷。</p>
+                        </div>
+                    </div>
+                    <div id="accordion-hosting" class="accordion-item bg-[#F8F5F2] p-6 rounded-lg shadow-sm">
+                        <button class="accordion-header w-full flex justify-between items-center text-left text-xl font-semibold">
+                            <span>理解网站托管 🏠</span>
+                            <span class="accordion-icon transform transition-transform duration-300">▼</span>
+                        </button>
+                        <div class="accordion-content mt-4 text-gray-600 space-y-3">
+                            <p><strong>共享托管:</strong> 经济实惠，适合新手和低流量网站。</p>
+                            <p><strong>VPS托管:</strong> 性能和控制力更强，适合成长中的博客。</p>
+                            <p><strong>专用托管:</strong> 性能最强，适合高流量大型网站。</p>
+                            <p><strong>云托管:</strong> 可靠性高，弹性扩展，按需付费。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="content" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-[#434242]">第三步: 创作引人入胜的图文内容</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-500">内容是博客的灵魂，“图文并茂”是让灵魂闪光的关键。高质量的图片能极大地提升阅读体验，但优化同样重要。这里我们将向您展示如何平衡视觉效果与网站性能，创作出真正吸引人的内容。</p>
+                </div>
+
+                <div class="mt-12 grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4">图片优化：速度与美的平衡艺术</h3>
+                        <p class="mb-6 text-gray-600">未优化的图片会拖慢您的网站，影响用户体验和SEO排名。选择正确的格式、压缩文件大小，并添加描述性文字，是每个博主都应掌握的技能。</p>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-[#B4846C] text-white flex items-center justify-center font-bold text-lg">1</div>
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-medium">选择合适的格式</h4>
+                                    <p class="text-gray-500">WebP是现代网页首选，兼顾质量与大小。JPEG适合照片，PNG适合需要透明背景的图标。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-[#B4846C] text-white flex items-center justify-center font-bold text-lg">2</div>
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-medium">压缩文件大小</h4>
+                                    <p class="text-gray-500">上传前使用工具将图片压缩至250KB以下，可显著提升加载速度。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-[#B4846C] text-white flex items-center justify-center font-bold text-lg">3</div>
+                                <div class="ml-4">
+                                    <h4 class="text-lg font-medium">添加Alt文本</h4>
+                                    <p class="text-gray-500">为每张图片添加描述，这不仅利于SEO，也方便视障用户理解内容。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 text-center">
+                            <h4 class="font-bold text-xl">JPEG 格式</h4>
+                            <p class="text-sm text-gray-500">传统照片格式</p>
+                            <div class="my-4 text-4xl font-bold text-[#7D5A50]">~120KB</div>
+                            <p class="text-xs text-gray-400">示例文件大小</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-lg border-2 border-[#7D5A50] text-center transform scale-105">
+                            <h4 class="font-bold text-xl text-[#7D5A50]">WebP 格式</h4>
+                            <p class="text-sm text-gray-500">现代网页首选</p>
+                             <div class="my-4 text-4xl font-bold text-[#7D5A50]">~80KB</div>
+                            <p class="text-xs text-gray-400">体积减小约 30%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="growth" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-[#434242]">第四步: 推广与增长</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-500">好内容需要被发现。学习基础的推广策略和搜索引擎优化（SEO）技巧，能让您的博客触达更广泛的读者。以下是一份为您准备的快速行动清单，助您迈出推广的第一步。</p>
+                </div>
+                <div class="mt-12 max-w-3xl mx-auto bg-[#F8F5F2] p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-semibold mb-6">增长行动清单 ✅</h3>
+                    <ul class="space-y-5">
+                        <li class="flex items-center">
+                            <span class="h-6 w-6 rounded-full bg-green-500 flex items-center justify-center text-white font-bold mr-4">✔</span>
+                            <span><strong>社交媒体分享:</strong> 将您的文章分享到相关社交平台，并使用话题标签。</span>
+                        </li>
+                        <li class="flex items-center">
+                           <span class="h-6 w-6 rounded-full bg-green-500 flex items-center justify-center text-white font-bold mr-4">✔</span>
+                            <span><strong>关键词优化:</strong> 在标题和内容中自然地融入目标关键词。</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="h-6 w-6 rounded-full bg-green-500 flex items-center justify-center text-white font-bold mr-4">✔</span>
+                            <span><strong>图片SEO:</strong> 确保所有图片都有描述性的文件名和Alt文本。</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="h-6 w-6 rounded-full bg-green-500 flex items-center justify-center text-white font-bold mr-4">✔</span>
+                            <span><strong>内部链接:</strong> 在文章中链接到您博客内的其他相关内容。</span>
+                        </li>
+                        <li class="flex items-center">
+                           <span class="h-6 w-6 rounded-full bg-green-500 flex items-center justify-center text-white font-bold mr-4">✔</span>
+                            <span><strong>邮件列表:</strong> 鼓励读者订阅，通过邮件推送新内容。</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-[#434242] text-white">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center text-sm">
+            <p>&copy; 2025 交互式图文博客搭建指南。由Kober为您倾力打造。</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const platformData = [
+                { name: 'Wix', desc: '功能强大的一体化平台，拖放式编辑器对新手极其友好，提供海量模板和AI工具。', tags: ['easy', 'visual'], scores: { '易用性': 5, '视觉效果': 4, '灵活性': 3, '性价比': 2, '功能': 4 } },
+                { name: 'Squarespace', desc: '以其精美、专业的模板著称，非常适合注重设计美感的创作者和创意人士。', tags: ['easy', 'visual'], scores: { '易用性': 4, '视觉效果': 5, '灵活性': 3, '性价比': 2, '功能': 4 } },
+                { name: 'Pixpa', desc: '专为摄影师、设计师等创意专业人士打造，提供强大的作品集和画廊展示功能。', tags: ['visual'], scores: { '易用性': 4, '视觉效果': 5, '灵活性': 3, '性价比': 3, '功能': 4 } },
+                { name: 'Hostinger', desc: '性价比极高的一体化建站工具，集成AI功能，是预算有限新手的理想选择。', tags: ['easy'], scores: { '易用性': 5, '视觉效果': 3, '灵活性': 3, '性价比': 5, '功能': 3 } },
+                { name: 'WordPress.org', desc: '开源CMS，提供极致的灵活性和控制权，拥有庞大的插件和主题生态，但有学习曲线。', tags: ['flexible'], scores: { '易用性': 2, '视觉效果': 4, '灵活性': 5, '性价比': 4, '功能': 5 } },
+                { name: 'WordPress.com', desc: 'WordPress的托管版本，简化了技术设置，易于上手，但定制性受限。', tags: ['easy', 'free'], scores: { '易用性': 4, '视觉效果': 3, '灵活性': 2, '性价比': 3, '功能': 3 } },
+                { name: 'Blogger', desc: 'Google旗下的免费平台，操作极其简单，适合追求极致简洁和免费方案的初学者。', tags: ['easy', 'free'], scores: { '易用性': 5, '视觉效果': 2, '灵活性': 1, '性价比': 5, '功能': 2 } },
+                { name: 'Medium', desc: '专注于写作的社区平台，拥有内置读者群，无需技术设置，但几乎没有定制性。', tags: ['easy', 'free'], scores: { '易用性': 5, '视觉效果': 2, '灵活性': 1, '性价比': 4, '功能': 1 } }
+            ];
+
+            const platformGrid = document.getElementById('platform-grid');
+            const filterButtons = document.querySelectorAll('#platform-filters button');
+
+            function renderPlatforms(filter = 'all') {
+                platformGrid.innerHTML = '';
+                const filteredData = filter === 'all' ? platformData : platformData.filter(p => p.tags.includes(filter));
+
+                filteredData.forEach(platform => {
+                    const card = document.createElement('div');
+                    card.className = 'platform-card bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow duration-300';
+                    card.innerHTML = `
+                        <h3 class="text-xl font-bold text-[#7D5A50]">${platform.name}</h3>
+                        <p class="mt-2 text-gray-600">${platform.desc}</p>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            ${platform.tags.map(tag => `<span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-[#7D5A50] bg-[#F8F5F2]">${{easy: '易于上手', visual: '视觉强大', flexible: '高度灵活', free: '免费方案'}[tag]}</span>`).join('')}
+                        </div>
+                    `;
+                    platformGrid.appendChild(card);
+                });
+            }
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    renderPlatforms(button.dataset.filter);
+                });
+            });
+
+            renderPlatforms();
+
+            const ctx = document.getElementById('platform-chart').getContext('2d');
+            const chartData = {
+                labels: ['易用性', '视觉效果', '灵活性', '性价比', '功能'],
+                datasets: [
+                    {
+                        label: 'Wix',
+                        data: Object.values(platformData.find(p => p.name === 'Wix').scores),
+                        backgroundColor: 'rgba(125, 90, 80, 0.2)',
+                        borderColor: 'rgba(125, 90, 80, 1)',
+                        pointBackgroundColor: 'rgba(125, 90, 80, 1)',
+                    },
+                    {
+                        label: 'Squarespace',
+                        data: Object.values(platformData.find(p => p.name === 'Squarespace').scores),
+                        backgroundColor: 'rgba(180, 132, 108, 0.2)',
+                        borderColor: 'rgba(180, 132, 108, 1)',
+                        pointBackgroundColor: 'rgba(180, 132, 108, 1)',
+                    },
+                    {
+                        label: 'WordPress.org',
+                        data: Object.values(platformData.find(p => p.name === 'WordPress.org').scores),
+                        backgroundColor: 'rgba(67, 66, 66, 0.2)',
+                        borderColor: 'rgba(67, 66, 66, 1)',
+                        pointBackgroundColor: 'rgba(67, 66, 66, 1)',
+                    }
+                ]
+            };
+            new Chart(ctx, {
+                type: 'radar',
+                data: chartData,
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            pointLabels: { font: { size: 14 } },
+                            min: 0,
+                            max: 5,
+                            ticks: {
+                                stepSize: 1,
+                                backdropColor: 'transparent'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
+                const icon = item.querySelector('.accordion-icon');
+                header.addEventListener('click', () => {
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                     if (this.getAttribute('href').startsWith('#')) {
+                        if(mobileMenu.classList.contains('hidden') === false){
+                            mobileMenu.classList.add('hidden');
+                        }
+                     }
+                });
+            });
+
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            window.onscroll = () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 80) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            };
+        });
+    </script>
+</body>
+</html>
